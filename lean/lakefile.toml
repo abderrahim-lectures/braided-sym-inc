@@ -1,0 +1,11 @@
+name = "BraidedSymInc"
+defaultTargets = ["Research"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "2b1308ee396f215169fdaa6807ea1d0f91d0001f"
+
+[[lean_lib]]
+name = "Research"
+roots = ["Research.BraidedSymInc.Alpha", "Research.BraidedSymInc.Basis", "Research.BraidedSymInc.Coord", "Research.BraidedSymInc.Criterion", "Research.BraidedSymInc.Diagonal", "Research.BraidedSymInc.Dimensions", "Research.BraidedSymInc.Idempotents", "Research.BraidedSymInc.Main", "Research.BraidedSymInc.Normalize", "Research.BraidedSymInc.Reduce", "Research.BraidedSymInc.Support", "Research.BraidedSymInc.Theorem", "Research.BraidedSymInc.UnitRel", "Research.BraidedSymInc.UnitStep"]

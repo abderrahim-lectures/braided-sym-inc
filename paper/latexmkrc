@@ -1,0 +1,18 @@
+# Make the vendored class/style files (../cls/, shared across all per-project
+# paper folders) findable without requiring the caller to set TEXINPUTS by
+# hand — interact.cls, quiver.sty et al. live there, copied from the
+# maths-research vault so papers build without hunting for the Taylor &
+# Francis class. The trailing ':' keeps the default search path.
+$ENV{'TEXINPUTS'} = '../cls:' . ($ENV{'TEXINPUTS'} // '');
+
+$pdf_mode = 1;
+$pdflatex = 'pdflatex -interaction=nonstopmode -halt-on-error %O %S';
+# No bibtex: the bibliography is inlined via thebibliography, so the build
+# does not reach into ../../bib/ at all (matching the sibling papers).
+$bibtex_use = 0;
+@default_files = ('braided-sym-inc.tex');
+$clean_ext = 'aux log out toc bbl blg bcf run.xml';
+# Build into build/ and name the artifact after the slug and version, so a
+# built PDF is self-identifying and the project root stays clean.
+$out_dir = 'build';
+$jobname = 'braided-sym-inc-v1';

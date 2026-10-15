@@ -1,0 +1,390 @@
+% Version: v1 (2026-10-14), initial draft: twisted Jordan derivations of incidence algebras are derivations, finite posets, 2 invertible.
+\documentclass[]{interact}
+\usepackage[utf8]{inputenc}
+
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+\usepackage[hidelinks,pagebackref=false]{hyperref}
+\usepackage[all]{hypcap}
+\hypersetup{linktoc=all}
+
+\usepackage[yyyymmdd,hhmmss]{datetime}
+\usepackage{float}
+
+\usepackage[numbers,sort&compress]{natbib}
+\bibpunct[, ]{[}{]}{,}{n}{,}{,}
+\renewcommand\bibfont{\fontsize{10}{12}\selectfont}
+\makeatletter
+\def\NAT@def@citea{\def\@citea{\NAT@separator}}
+\makeatother
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\allowdisplaybreaks
+
+\newcommand{\Der}{\mathrm{Der}}
+\newcommand{\BSDer}{\mathrm{BSDer}}
+
+\newcommand{\paperversion}{1}
+
+\begin{document}
+\title{Braided-Symmetric Derivations of Incidence Algebras}
+
+\author{
+\name{Abderrahim Adrabi\textsuperscript{a,b}\thanks{CONTACT A. Adrabi. Email: abderrahim.adrabi@um5r.ac.ma}}
+	\affil{\textsuperscript{a}Faculty of Sciences, Mohammed V University in Rabat, Morocco;\\ \textsuperscript{b}Faculty of Educational Sciences, Mohammed V University in Rabat, Morocco}
+}
+
+\history{Preprint version \paperversion, compiled \today}
+
+\maketitle
+
+\begin{abstract}
+Let $A$ be the incidence algebra of a finite partially ordered set $X$ (a poset) over a commutative ring $K$ in which $2$ is invertible.
+Let $\tau$ be an order automorphism of $X$ with $\tau^2 = \mathrm{id}$, and let $\alpha$ be the automorphism of $A$ that $\tau$ induces.
+We twist the Jordan product of $A$ by $\alpha$, and we call a linear map that satisfies the Leibniz rule for this product a braided-symmetric derivation.
+We prove that a braided-symmetric derivation that commutes with $\alpha$ is a derivation.
+For $\tau = \mathrm{id}$ this is the known theorem that Jordan derivations of incidence algebras are derivations.
+We show that the hypothesis on $2$ is needed, and we list computed dimensions for small posets.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+A linear map $D$ on an associative algebra $A$ is a derivation if $D(xy) = D(x)y + xD(y)$ for all $x, y \in A$.
+It is a Jordan derivation if the same rule holds for the product $xy + yx$.
+The standard question is whether every Jordan derivation is a derivation~\cite{Xiao2015}.
+For incidence algebras of locally finite preordered sets, Xiao proved that the answer is yes when the base ring is $2$-torsion free~\cite[Theorem 3.3]{Xiao2015}.
+Zhang and Khrypchenko proved that every Lie derivation of the incidence algebra of a connected locally finite preordered set, over a $2$-torsion free ring, is the sum of a derivation and a map into the centre~\cite[Theorem 3.10]{ZhangKhrypchenko2017}.
+Yang described the nonlinear Jordan derivations of incidence algebras over a $2$-torsion free commutative ring~\cite[Theorem 3.1]{Yang2021}.
+Yang also studied Jordan $*$-derivations, where $*$ is an involution that reverses products, and showed that such maps need not be $*$-derivations~\cite[Example 3.1]{Yang2025}.
+Jia and Xiao proved that every Jordan skew derivation of an incidence algebra over a field of characteristic not $2$ is a skew derivation~\cite[Theorem 3.8]{JiaXiao2025}.
+In the skew results the automorphism acts in the Leibniz rule.
+Here it acts in the product, which is a different problem.
+Fornaroli and Khrypchenko described the skew derivations of incidence algebras, that is, the $\varphi$-derivations for an automorphism $\varphi$~\cite[Theorem 2.8]{FornaroliKhrypchenko2023}.
+
+In an earlier paper we studied derivation-like maps for a product that is twisted by an involution of $A \otimes A$~\cite[Section 3]{Adrabi2026}.
+We call them braided-symmetric derivations.
+The twist by an involutive automorphism $\alpha$ of $A$ replaces $xy + yx$ by $xy + \alpha(yx)$~\cite{Adrabi2026}.
+Here we answer the question for this product on incidence algebras.
+
+In this paper we use the following set-up. % claim-ok: signpost to the notation fixed in the next lines
+Let $K$ be a commutative ring in which $2$ is invertible.
+Let $X$ be a finite poset and let $A = I(X,K)$ be its incidence algebra over $K$, defined in Section~\ref{sec:prelim}.
+Let $\tau$ be an order automorphism of $X$ with $\tau^2 = \mathrm{id}$.
+It induces an involutive automorphism $\alpha$ of $A$, as shown in Section~\ref{sec:prelim}.
+Write $x \cdot y = xy + \alpha(yx)$ for $x, y \in A$.
+A linear map $D \colon A \to A$ is braided-symmetric if $D(x \cdot y) = D(x) \cdot y + x \cdot D(y)$ for all $x, y$.
+Let $\BSDer(A,\alpha)$ be the set of these maps, and let $\BSDer(A,\alpha)^\alpha$ be the subset of maps that commute with $\alpha$.
+Let $\Der(A)^\alpha$ be the set of derivations of $A$ that commute with $\alpha$.
+
+\begin{theorem}\label{thm:main}
+Let $K$ be a commutative ring with $2$ invertible, let $X$ be a finite poset, and let $\tau$ be an order automorphism of $X$ with $\tau^2 = \mathrm{id}$.
+Let $A = I(X,K)$ and let $\alpha$ be the automorphism of $A$ induced by $\tau$.
+Then $\BSDer(A,\alpha)^\alpha = \Der(A)^\alpha$.
+\end{theorem}
+
+For $\tau = \mathrm{id}$ the map $\alpha$ is the identity and $x \cdot y = xy + yx$.
+Then the theorem says that a Jordan derivation of $I(X,K)$ is a derivation.
+Xiao proved this for locally finite preordered sets~\cite[Theorem 3.3]{Xiao2015}.
+So the new content is the twist.
+The proof uses the diagonal idempotents of $A$ and no description of its derivations. % claim-ok: describes the proof given in Section~\ref{sec:proof}
+
+Section~\ref{sec:prelim} fixes notation and gives a criterion for membership in $\BSDer(A,\alpha)$.
+Section~\ref{sec:proof} proves Theorem~\ref{thm:main}.
+Section~\ref{sec:examples} shows that $2$ must be invertible and lists dimensions computed by computer.
+
+\section{Preliminaries}\label{sec:prelim}
+
+Throughout, $K$ is a commutative ring with $2$ invertible, $X$ is a finite poset, and $\tau$ is an order automorphism of $X$ with $\tau^2 = \mathrm{id}$.
+Write $x \le y$ for the order of $X$.
+
+\begin{definition}\label{def:incidence}
+The incidence algebra $A = I(X,K)$ is the free $K$-module with basis $\{e_{xy} : x \le y\}$.
+The product is $e_{xy}e_{zw} = e_{xw}$ if $y = z$ and $0$ otherwise.
+Write $\varepsilon_x = e_{xx}$.
+The elements $\varepsilon_x$ are orthogonal idempotents and $1 = \sum_x \varepsilon_x$.
+\end{definition}
+
+For $x \le y$ we have $\tau x \le \tau y$, so the $K$-linear map $\alpha$ with $\alpha(e_{xy}) = e_{\tau x\, \tau y}$ is defined.
+It is an automorphism of $A$ and $\alpha^2 = \mathrm{id}$.
+Note that $\alpha(\varepsilon_x) = \varepsilon_{\tau x}$.
+
+\begin{lemma}\label{lem:order}
+If $x \le \tau x$ then $x = \tau x$.
+\end{lemma}
+
+\begin{proof}
+Apply $\tau$ to $x \le \tau x$.
+We get $\tau x \le \tau^2 x = x$.
+So $x = \tau x$ because $\le$ is antisymmetric.
+\end{proof}
+
+Let $D \colon A \to A$ be $K$-linear.
+Its Leibniz defect is the bilinear map
+\[
+E_D(x,y) = D(xy) - D(x)y - xD(y).
+\]
+So $D$ is a derivation if and only if $E_D = 0$.
+
+\begin{lemma}\label{lem:criterion}
+Let $D \colon A \to A$ be linear with $D\alpha = \alpha D$.
+Then $D \in \BSDer(A,\alpha)$ if and only if $E_D(x,y) + \alpha(E_D(y,x)) = 0$ for all $x, y \in A$.
+In particular every derivation that commutes with $\alpha$ lies in $\BSDer(A,\alpha)^\alpha$.
+\end{lemma}
+
+\begin{proof}
+Write $E = E_D$.
+Since $D$ commutes with $\alpha$, we have $\alpha(y)\,\alpha(D(x)) = \alpha(yD(x))$.
+So
+\[
+D(x) \cdot y + x \cdot D(y) = D(x)y + xD(y) + \alpha\bigl(yD(x) + D(y)x\bigr).
+\]
+By the definition of $E$, the right side equals
+\[
+D(xy) - E(x,y) + \alpha\bigl(D(yx) - E(y,x)\bigr).
+\]
+The left side of the Leibniz rule is $D(x \cdot y) = D(xy) + \alpha(D(yx))$.
+So the Leibniz rule holds exactly when $E(x,y) + \alpha(E(y,x)) = 0$.
+If $D$ is a derivation then $E = 0$ and this holds.
+\end{proof}
+
+By Lemma~\ref{lem:criterion}, the inclusion $\Der(A)^\alpha \subseteq \BSDer(A,\alpha)^\alpha$ is clear.
+It remains to show that a map $D$ in $\BSDer(A,\alpha)^\alpha$ is a derivation. % claim-ok: states what the next section proves
+
+\section{Proof of the theorem}\label{sec:proof}
+
+Fix $D \in \BSDer(A,\alpha)^\alpha$ and write $E = E_D$.
+By Lemma~\ref{lem:criterion},
+\begin{equation}\label{eq:rel}
+E(x,y) = -\alpha\bigl(E(y,x)\bigr) \qquad (x, y \in A).
+\end{equation}
+For $x \in X$ and $r \le s$, let $F_x(r,s) \in K$ be the coefficient of $e_{rs}$ in $D(\varepsilon_x)$.
+Since $D\alpha = \alpha D$ and $\alpha(\varepsilon_x) = \varepsilon_{\tau x}$,
+\begin{equation}\label{eq:equi}
+F_{\tau x}(\tau r, \tau s) = F_x(r,s).
+\end{equation}
+
+\subsection*{Step 1: the values $D(\varepsilon_x)$}
+
+Let $x \ne y$ in $X$ and put $P_{xy} = D(\varepsilon_x)\varepsilon_y + \varepsilon_x D(\varepsilon_y)$.
+Since $\varepsilon_x\varepsilon_y = 0$, we have $E(\varepsilon_x,\varepsilon_y) = -P_{xy}$.
+By~\eqref{eq:rel} and $\alpha(P_{yx}) = P_{\tau y\,\tau x}$ we get
+\begin{equation}\label{eq:P}
+P_{xy} + P_{\tau y\,\tau x} = 0 \qquad (x \ne y).
+\end{equation}
+The coefficient of $e_{rs}$ in $P_{xy}$ is $\delta_{sy}F_x(r,y) + \delta_{rx}F_y(x,s)$. % claim-ok: follows from the multiplication rule of Definition~\ref{def:incidence}
+So the coefficient of $e_{rs}$ in~\eqref{eq:P} is
+\begin{equation}\label{eq:coeff}
+\delta_{sy}F_x(r,y) + \delta_{rx}F_y(x,s) + \delta_{s,\tau x}F_{\tau y}(r,\tau x) + \delta_{r,\tau y}F_{\tau x}(\tau y, s) = 0.
+\end{equation}
+
+\begin{lemma}\label{lem:support}
+Let $r \le s$ and suppose $F_x(r,s) \ne 0$.
+Then $r = x$ or $s = x$ or $r = s$.
+In the last case $r = \tau r$ or $r = \tau x$.
+\end{lemma}
+
+\begin{proof}
+Suppose $r \ne x$ and $s \ne x$.
+Put $y = s$ in~\eqref{eq:coeff}.
+This is allowed since $s \ne x$.
+The second term needs $r = x$, so it is zero.
+So if also $s \ne \tau x$ and $r \ne \tau s$, the first term alone gives $F_x(r,s) = 0$.
+Hence $s = \tau x$ or $r = \tau s$.
+
+Now put $(x', y') = (r, x)$ in~\eqref{eq:coeff}, which is allowed since $r \ne x$, and take the coefficient at $(r,s)$.
+The first term needs $s = x$, so it is zero.
+The second term is $F_x(r,s)$.
+If $s \ne \tau r$ and $r \ne \tau x$, the other two terms are zero and $F_x(r,s) = 0$.
+Hence $s = \tau r$ or $r = \tau x$.
+
+Combine the two conclusions.
+If $r = \tau s$, then $s = \tau r$, and $r \le s = \tau r$ gives $r = \tau r = s$ by Lemma~\ref{lem:order}.
+Otherwise $s = \tau x$ and $r = \tau x$, so $r = s = \tau x$.
+\end{proof}
+
+So $D(\varepsilon_x)$ is a sum of terms $e_{xs}$ with $s > x$, terms $e_{rx}$ with $r < x$, and diagonal terms.
+
+\subsection*{Step 2: removing an inner derivation}
+
+For $r < s$ put $c_{rs} = F_s(r,s)$ and let $c = \sum_{r<s} c_{rs}e_{rs}$.
+By~\eqref{eq:equi} and the fact that $\tau$ maps the set of pairs $r < s$ onto itself, we have $\alpha(c) = c$.
+The commutator with $\varepsilon_x$ is
+\[
+[c, \varepsilon_x] = \sum_{r < x} c_{rx}e_{rx} - \sum_{s > x} c_{xs}e_{xs}.
+\]
+The coefficient of $e_{rx}$ for $r < x$ equals $F_x(r,x)$ by the definition of $c$. % claim-ok: the definition of c_{rs} in the line above
+For $x < s$, we claim that $F_x(x,s) = -F_s(x,s)$.
+Indeed, put $(r,s) = (x,s)$ and $y = s$ in~\eqref{eq:coeff}.
+The first two terms are $F_x(x,s) + F_s(x,s)$. % claim-ok: read off from the displayed coefficient formula
+The third term needs $s = \tau x$ and the fourth needs $x = \tau s$.
+Both would give $x < \tau x$, which contradicts Lemma~\ref{lem:order}.
+So the claim holds.
+Hence $[c,\varepsilon_x]$ is exactly the off-diagonal part of $D(\varepsilon_x)$.
+
+Let $D_1 = D - \operatorname{ad}_c$.
+Since $\alpha(c) = c$, the inner derivation $\operatorname{ad}_c$ commutes with $\alpha$.
+So $D_1$ commutes with $\alpha$ and $E_{D_1} = E_D$.
+By Lemma~\ref{lem:criterion}, $D_1 \in \BSDer(A,\alpha)^\alpha$, and $D$ is a derivation if and only if $D_1$ is.
+By construction each $D_1(\varepsilon_x)$ is diagonal:
+\[
+D_1(\varepsilon_x) = \sum_y d_x(y)\,\varepsilon_y, \qquad d_{\tau x}(\tau y) = d_x(y).
+\]
+Relation~\eqref{eq:rel} still holds for $D_1$.
+
+\subsection*{Step 3: $D_1$ vanishes on the idempotents}
+
+Let $x \ne y$ and put $p = d_x(y)$ and $q = d_y(x)$.
+Then $P_{xy} = p\varepsilon_y + q\varepsilon_x$ and $P_{\tau y\,\tau x} = q\varepsilon_{\tau x} + p\varepsilon_{\tau y}$, so~\eqref{eq:P} reads
+\[
+p\,(\varepsilon_y + \varepsilon_{\tau y}) + q\,(\varepsilon_x + \varepsilon_{\tau x}) = 0.
+\]
+Suppose first that $\{x,\tau x\} \ne \{y,\tau y\}$.
+Then the two sums have no idempotent in common.
+Each sum is either twice one idempotent or the sum of two different idempotents. % claim-ok: tau is an involution, so the orbit of y has one or two points
+Since $2$ is invertible, $p = q = 0$.
+Suppose now that $\{x,\tau x\} = \{y,\tau y\}$.
+Since $x \ne y$, we have $y = \tau x \ne x$.
+The relation becomes $(p + q)(\varepsilon_x + \varepsilon_{\tau x}) = 0$, so $p + q = 0$.
+But $q = d_{\tau x}(x) = d_x(\tau x) = p$ by the symmetry of $d$.
+So $2p = 0$ and $p = 0$.
+Hence $d_x(y) = 0$ for $x \ne y$, and $D_1(\varepsilon_x) = \lambda_x\varepsilon_x$ for a scalar $\lambda_x$.
+
+Now $E(\varepsilon_x,\varepsilon_x) = \lambda_x\varepsilon_x - 2\lambda_x\varepsilon_x = -\lambda_x\varepsilon_x$.
+Relation~\eqref{eq:rel} gives $-\lambda_x\varepsilon_x = \lambda_x\varepsilon_{\tau x}$.
+If $\tau x \ne x$ this gives $\lambda_x = 0$.
+If $\tau x = x$ it gives $2\lambda_x = 0$, so $\lambda_x = 0$.
+So $D_1(\varepsilon_x) = 0$ for all $x$.
+
+\subsection*{Step 4: $D_1$ on the other basis elements}
+
+Let $c_0 < d_0$ in $X$ and write $H = D_1(e_{c_0 d_0})$, so that $\alpha(H) = D_1(e_{\tau c_0\,\tau d_0})$.
+Take $x \in X$.
+Since $D_1(\varepsilon_x) = 0$, we have $E(\varepsilon_x, e_{c_0d_0}) = \delta_{xc_0}H - \varepsilon_xH$ and $E(e_{c_0d_0}, \varepsilon_x) = \delta_{xd_0}H - H\varepsilon_x$.
+Relation~\eqref{eq:rel} for the pair $(\varepsilon_x, e_{c_0d_0})$ gives
+\begin{equation}\label{eq:step4}
+\delta_{xc_0}H - \varepsilon_xH + \delta_{xd_0}\alpha(H) - \alpha(H)\varepsilon_{\tau x} = 0.
+\end{equation}
+Let $x \notin \{c_0,d_0\}$.
+Then $\varepsilon_xH = -\alpha(H)\varepsilon_{\tau x}$.
+The left side lies in $\varepsilon_xA$ and the right side lies in $A\varepsilon_{\tau x}$. % claim-ok: multiplication by an idempotent on the left or right
+So both lie in $\varepsilon_xA\varepsilon_{\tau x}$, which is spanned by $e_{x\,\tau x}$ if $x \le \tau x$ and is zero otherwise.
+By Lemma~\ref{lem:order}, it is zero unless $\tau x = x$.
+If $\tau x = x$, the common value is $h\,\varepsilon_x$.
+Applying $\alpha$ to $\varepsilon_xH = h\varepsilon_x$ gives $\varepsilon_x\alpha(H) = h\varepsilon_x$, while $\alpha(H)\varepsilon_x = -h\varepsilon_x$.
+So the coefficient of $\varepsilon_x$ in $\alpha(H)$ is both $h$ and $-h$. % claim-ok: the two displayed equalities in the preceding line
+So $h = 0$.
+Hence $\varepsilon_xH = 0$ and $\alpha(H)\varepsilon_{\tau x} = 0$, that is, $H\varepsilon_x = 0$, for every $x \notin \{c_0,d_0\}$.
+So $H$ is supported on the entries with row and column in $\{c_0,d_0\}$.
+Since $c_0 < d_0$,
+\[
+H = p\,\varepsilon_{c_0} + q\,e_{c_0d_0} + r\,\varepsilon_{d_0}.
+\]
+Put $x = c_0$ in~\eqref{eq:step4}.
+Then $(1-\varepsilon_{c_0})H = \alpha(H)\varepsilon_{\tau c_0}$, that is, $r\,\varepsilon_{d_0} = p\,\varepsilon_{\tau c_0}$.
+We have $d_0 \ne \tau c_0$, since $c_0 < d_0 = \tau c_0$ would contradict Lemma~\ref{lem:order}.
+So $r = p = 0$ and $D_1(e_{c_0d_0}) = q_{c_0d_0}\,e_{c_0d_0}$ for a scalar $q_{c_0d_0}$.
+
+\subsection*{Step 5: $D_1$ is a derivation}
+
+Put $q_{xx} = 0$.
+Then $D_1(e_{xy}) = q_{xy}e_{xy}$ for all $x \le y$.
+Let $a < b < d$.
+Then $e_{bd}e_{ab} = 0$, so $E(e_{bd}, e_{ab}) = 0$.
+By~\eqref{eq:rel}, $E(e_{ab},e_{bd}) = 0$, that is, $q_{ad} = q_{ab} + q_{bd}$.
+This holds if two of the indices coincide, since then one of the terms is zero.
+Now check $E = 0$ on all pairs of basis elements.
+For $e_{xy}$ and $e_{zw}$ with $y \ne z$ we get $D_1(0) - q_{xy}e_{xy}e_{zw} - q_{zw}e_{xy}e_{zw} = 0$.
+For $y = z$ we get $(q_{xw} - q_{xy} - q_{yw})e_{xw} = 0$.
+So $E_{D_1} = 0$ and $D_1$ is a derivation.
+Hence $D = D_1 + \operatorname{ad}_c$ is a derivation.
+It commutes with $\alpha$ by assumption.
+This proves Theorem~\ref{thm:main}. \qed
+
+\begin{remark}
+The proof uses that $2$ is invertible in three places: to cancel $2p = 0$ and $2\lambda_x = 0$ in Step~3, and $2h = 0$ in Step~4.
+\end{remark}
+
+\section{Examples and sharpness}\label{sec:examples}
+
+The hypothesis that $2$ is invertible is needed.
+
+\begin{example}\label{ex:antichain}
+Let $X = \{1,2\}$ be a set of two incomparable points with $\tau$ the swap, and let $K = \mathbb{F}_2$.
+Then $A = \mathbb{F}_2 \times \mathbb{F}_2$.
+The linear map $D$ with $D(\varepsilon_1) = D(\varepsilon_2) = \varepsilon_1 + \varepsilon_2$ commutes with $\alpha$.
+Here $x \cdot y = xy + \alpha(yx)$ equals $xy + \alpha(xy)$, and both sides of the Leibniz rule vanish on the basis.
+So $D \in \BSDer(A,\alpha)^\alpha$.
+But a derivation satisfies $D(\varepsilon_1) = D(\varepsilon_1^2) = 2\varepsilon_1D(\varepsilon_1) = 0$ in characteristic $2$, while $D(\varepsilon_1) \ne 0$.
+So $D$ is not a derivation.
+\end{example}
+
+The next table lists dimensions computed by computer from the rank of the linear system that defines $\BSDer(A,\alpha)^\alpha$ and $\Der(A)^\alpha$.
+Each entry is the pair $(\dim\BSDer(A,\alpha)^\alpha,\ \dim\Der(A)^\alpha)$ over the field $\mathbb{F}_p$.
+Since $\Der(A)^\alpha \subseteq \BSDer(A,\alpha)^\alpha$ by Lemma~\ref{lem:criterion}, equal dimensions mean equal spaces.
+
+\begin{center}
+\begin{tabular}{l l c c}
+poset $X$ & $\tau$ & $p = 2$ & $p = 3$\\
+\hline
+2 incomparable points & swap & $(1,0)$ & $(0,0)$\\
+chain of 2 points & identity & $(4,2)$ & $(2,2)$\\
+chain of 3 points & identity & $(8,5)$ & $(5,5)$\\
+$V$: $0 < 1$, $0 < 2$ & identity & $(7,4)$ & $(4,4)$\\
+$V$ & swap $1 \leftrightarrow 2$ & $(3,2)$ & $(2,2)$\\
+diamond $0 < 1,2 < 3$ & swap $1 \leftrightarrow 2$ & $(6,5)$ & $(5,5)$\\
+cross: $0,1 < 2 < 3,4$ & swap $0\leftrightarrow 1$, $3 \leftrightarrow 4$ & $(6,6)$ & $(6,6)$
+\end{tabular}
+\end{center}
+
+For $p = 3$ the dimensions agree in every row, as Theorem~\ref{thm:main} predicts.
+For $p = 2$ they differ in all rows but the last.
+So in characteristic $2$ the conclusion can hold or fail, depending on $(X,\tau)$.
+We do not know which pairs $(X,\tau)$ keep equality in characteristic $2$.
+
+\begin{remark}
+The space $\Der(A)^\alpha$ is in general different from the space of $\alpha$-derivations of Fornaroli and Khrypchenko~\cite{FornaroliKhrypchenko2023}.
+An $\alpha$-derivation $d$ satisfies $d(xy) = d(x)\alpha(y) + \alpha(x)d(y)$, which is not the Leibniz rule for $x \cdot y$.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem[Adrabi(2026)]{Adrabi2026}
+A.~Adrabi, Braided-symmetric derivations of algebras, preprint, Mohammed V University in Rabat, 2026.
+
+\bibitem[Fornaroli and Khrypchenko(2023)]{FornaroliKhrypchenko2023}
+\'E.~Z. Fornaroli and M.~Khrypchenko, Skew derivations of incidence algebras, Collect. Math. (2023), doi:10.1007/s13348-023-00423-7.
+
+\bibitem[Jia and Xiao(2025)]{JiaXiao2025}
+H.~Jia and Z.~Xiao, Jordan skew derivations of incidence algebras, Bull. Malays. Math. Sci. Soc. (2025), doi:10.1007/s40840-025-01960-z.
+
+\bibitem[Xiao(2015)]{Xiao2015}
+Z.~Xiao, Jordan derivations of incidence algebras, Rocky Mountain J. Math. 45 (2015), no.~4, 1357--1368.
+
+\bibitem[Yang(2021)]{Yang2021}
+Y.~Yang, Nonlinear Jordan derivations of incidence algebras, Comm. Algebra (2021), doi:10.1080/00927872.2021.1890106.
+
+\bibitem[Yang(2025)]{Yang2025}
+L.~Yang, Jordan $*$-derivations of incidence algebras, arXiv:2507.13751 (2025).
+
+\bibitem[Zhang and Khrypchenko(2017)]{ZhangKhrypchenko2017}
+X.~Zhang and M.~Khrypchenko, Lie derivations of incidence algebras, Linear Algebra Appl. 513 (2017), 69--83.
+
+\end{thebibliography}
+
+\end{document}
