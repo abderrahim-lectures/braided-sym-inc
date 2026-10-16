@@ -1,4 +1,4 @@
-% Version: v2 (2026-10-16), Xiao Theorem 3.3 is stated before use. No claim changes.
+% Version: v3 (2026-10-16), Xiao's Theorem 3.3 is stated as the source gives it, with its standing hypothesis on X before it, and the incidence algebra is credited to Xiao. No result changes; two attributions are added.
 \documentclass[]{interact}
 \usepackage[utf8]{inputenc}
 
@@ -102,9 +102,11 @@ For $\tau = \mathrm{id}$ the map $\alpha$ is the identity and $x \cdot y = xy + 
 Then Theorem~\ref{thm:main} says that a Jordan derivation of $I(X,K)$ is a derivation.
 This case is Theorem~\ref{thm:xiao}, a theorem of Xiao~\cite[Theorem 3.3]{Xiao2015}, which we recall.
 
+In his paper, $X$ is a locally finite preordered set~\cite[p.~1357]{Xiao2015}.
+
 \begin{theorem}[{\cite[Theorem 3.3]{Xiao2015}}]\label{thm:xiao}
-Let $X$ be a locally finite preordered set and let $R$ be a $2$-torsion free commutative ring with identity.
-Then every Jordan derivation of the incidence algebra $I(X,R)$ is a derivation.
+Let $R$ be a $2$-torsion free commutative ring with identity.
+Then every Jordan derivation of the incidence algebra $I(X, R)$ is a derivation.
 \end{theorem}
 
 So the new content is the twist.
@@ -118,6 +120,8 @@ Section~\ref{sec:examples} shows that $2$ must be invertible and lists dimension
 
 Throughout, $K$ is a commutative ring with $2$ invertible, $X$ is a finite poset, and $\tau$ is an order automorphism of $X$ with $\tau^2 = \mathrm{id}$.
 Write $x \le y$ for the order of $X$.
+
+The incidence algebra of a finite poset is the algebra defined by \citet[p.~1357]{Xiao2015}.
 
 \begin{definition}\label{def:incidence}
 The incidence algebra $A = I(X,K)$ is the free $K$-module with basis $\{e_{xy} : x \le y\}$.

@@ -1,7 +1,7 @@
 # Braided-Symmetric Derivations of Incidence Algebras
 
 Author: Abderrahim Adrabi, Mohammed V University in Rabat.  
-Current version: **v2**.
+Current version: **v3**.
 
 ## The idea of the paper
 
@@ -28,6 +28,7 @@ Build the paper with `cd paper && latexmk -pdf braided-sym-inc.tex`. Build the L
 
 One entry per released version, newest first. Each version is also a tag of this repository.
 
+- **v3** (2026-10-16): Xiao's Theorem 3.3 is stated as the source gives it, with its standing hypothesis on X before it, and the incidence algebra is credited to Xiao. No result changes; two attributions are added.
 - **v2** (2026-10-16): Xiao Theorem 3.3 is stated before use. No claim changes.
 - **v1** (2026-10-14): initial draft from the proof found for lead #813.
 
