@@ -1,4 +1,4 @@
-% Version: v1 (2026-10-14), initial draft: twisted Jordan derivations of incidence algebras are derivations, finite posets, 2 invertible.
+% Version: v2 (2026-10-16), Xiao Theorem 3.3 is stated before use. No claim changes.
 \documentclass[]{interact}
 \usepackage[utf8]{inputenc}
 
@@ -66,14 +66,14 @@ We show that the hypothesis on $2$ is needed, and we list computed dimensions fo
 \section{Introduction}\label{sec:intro}
 
 A linear map $D$ on an associative algebra $A$ is a derivation if $D(xy) = D(x)y + xD(y)$ for all $x, y \in A$.
-It is a Jordan derivation if the same rule holds for the product $xy + yx$.
+It is a Jordan derivation if the same rule holds for the product $xy + yx$. % claim-ok: definition of the term used in this paper
 The standard question is whether every Jordan derivation is a derivation~\cite{Xiao2015}.
 For incidence algebras of locally finite preordered sets, Xiao proved that the answer is yes when the base ring is $2$-torsion free~\cite[Theorem 3.3]{Xiao2015}.
 Zhang and Khrypchenko proved that every Lie derivation of the incidence algebra of a connected locally finite preordered set, over a $2$-torsion free ring, is the sum of a derivation and a map into the centre~\cite[Theorem 3.10]{ZhangKhrypchenko2017}.
 Yang described the nonlinear Jordan derivations of incidence algebras over a $2$-torsion free commutative ring~\cite[Theorem 3.1]{Yang2021}.
 Yang also studied Jordan $*$-derivations, where $*$ is an involution that reverses products, and showed that such maps need not be $*$-derivations~\cite[Example 3.1]{Yang2025}.
 Jia and Xiao proved that every Jordan skew derivation of an incidence algebra over a field of characteristic not $2$ is a skew derivation~\cite[Theorem 3.8]{JiaXiao2025}.
-In the skew results the automorphism acts in the Leibniz rule.
+In the skew results the automorphism acts in the Leibniz rule~\cite{JiaXiao2025, FornaroliKhrypchenko2023}.
 Here it acts in the product, which is a different problem.
 Fornaroli and Khrypchenko described the skew derivations of incidence algebras, that is, the $\varphi$-derivations for an automorphism $\varphi$~\cite[Theorem 2.8]{FornaroliKhrypchenko2023}.
 
@@ -99,8 +99,14 @@ Then $\BSDer(A,\alpha)^\alpha = \Der(A)^\alpha$.
 \end{theorem}
 
 For $\tau = \mathrm{id}$ the map $\alpha$ is the identity and $x \cdot y = xy + yx$.
-Then the theorem says that a Jordan derivation of $I(X,K)$ is a derivation.
-Xiao proved this for locally finite preordered sets~\cite[Theorem 3.3]{Xiao2015}.
+Then Theorem~\ref{thm:main} says that a Jordan derivation of $I(X,K)$ is a derivation.
+This case is Theorem~\ref{thm:xiao}, a theorem of Xiao~\cite[Theorem 3.3]{Xiao2015}, which we recall.
+
+\begin{theorem}[{\cite[Theorem 3.3]{Xiao2015}}]\label{thm:xiao}
+Let $X$ be a locally finite preordered set and let $R$ be a $2$-torsion free commutative ring with identity.
+Then every Jordan derivation of the incidence algebra $I(X,R)$ is a derivation.
+\end{theorem}
+
 So the new content is the twist.
 The proof uses the diagonal idempotents of $A$ and no description of its derivations. % claim-ok: describes the proof given in Section~\ref{sec:proof}
 
@@ -179,7 +185,7 @@ Since $D\alpha = \alpha D$ and $\alpha(\varepsilon_x) = \varepsilon_{\tau x}$,
 F_{\tau x}(\tau r, \tau s) = F_x(r,s).
 \end{equation}
 
-\subsection*{Step 1: the values $D(\varepsilon_x)$}
+\paragraph{Step 1: the values $D(\varepsilon_x)$}
 
 Let $x \ne y$ in $X$ and put $P_{xy} = D(\varepsilon_x)\varepsilon_y + \varepsilon_x D(\varepsilon_y)$.
 Since $\varepsilon_x\varepsilon_y = 0$, we have $E(\varepsilon_x,\varepsilon_y) = -P_{xy}$.
@@ -220,10 +226,10 @@ Otherwise $s = \tau x$ and $r = \tau x$, so $r = s = \tau x$.
 
 So $D(\varepsilon_x)$ is a sum of terms $e_{xs}$ with $s > x$, terms $e_{rx}$ with $r < x$, and diagonal terms.
 
-\subsection*{Step 2: removing an inner derivation}
+\paragraph{Step 2: removing an inner derivation}
 
 For $r < s$ put $c_{rs} = F_s(r,s)$ and let $c = \sum_{r<s} c_{rs}e_{rs}$.
-By~\eqref{eq:equi} and the fact that $\tau$ maps the set of pairs $r < s$ onto itself, we have $\alpha(c) = c$.
+By~\eqref{eq:equi} and since $\tau$ maps the set of pairs $r < s$ onto itself, we have $\alpha(c) = c$.
 The commutator with $\varepsilon_x$ is
 \[
 [c, \varepsilon_x] = \sum_{r < x} c_{rx}e_{rx} - \sum_{s > x} c_{xs}e_{xs}.
@@ -247,7 +253,7 @@ D_1(\varepsilon_x) = \sum_y d_x(y)\,\varepsilon_y, \qquad d_{\tau x}(\tau y) = d
 \]
 Relation~\eqref{eq:rel} still holds for $D_1$.
 
-\subsection*{Step 3: $D_1$ vanishes on the idempotents}
+\paragraph{Step 3: $D_1$ vanishes on the idempotents}
 
 Let $x \ne y$ and put $p = d_x(y)$ and $q = d_y(x)$.
 Then $P_{xy} = p\varepsilon_y + q\varepsilon_x$ and $P_{\tau y\,\tau x} = q\varepsilon_{\tau x} + p\varepsilon_{\tau y}$, so~\eqref{eq:P} reads
@@ -271,7 +277,7 @@ If $\tau x \ne x$ this gives $\lambda_x = 0$.
 If $\tau x = x$ it gives $2\lambda_x = 0$, so $\lambda_x = 0$.
 So $D_1(\varepsilon_x) = 0$ for all $x$.
 
-\subsection*{Step 4: $D_1$ on the other basis elements}
+\paragraph{Step 4: $D_1$ on the other basis elements}
 
 Let $c_0 < d_0$ in $X$ and write $H = D_1(e_{c_0 d_0})$, so that $\alpha(H) = D_1(e_{\tau c_0\,\tau d_0})$.
 Take $x \in X$.
@@ -300,7 +306,7 @@ Then $(1-\varepsilon_{c_0})H = \alpha(H)\varepsilon_{\tau c_0}$, that is, $r\,\v
 We have $d_0 \ne \tau c_0$, since $c_0 < d_0 = \tau c_0$ would contradict Lemma~\ref{lem:order}.
 So $r = p = 0$ and $D_1(e_{c_0d_0}) = q_{c_0d_0}\,e_{c_0d_0}$ for a scalar $q_{c_0d_0}$.
 
-\subsection*{Step 5: $D_1$ is a derivation}
+\paragraph{Step 5: $D_1$ is a derivation}
 
 Put $q_{xx} = 0$.
 Then $D_1(e_{xy}) = q_{xy}e_{xy}$ for all $x \le y$.
@@ -313,7 +319,7 @@ For $e_{xy}$ and $e_{zw}$ with $y \ne z$ we get $D_1(0) - q_{xy}e_{xy}e_{zw} - q
 For $y = z$ we get $(q_{xw} - q_{xy} - q_{yw})e_{xw} = 0$.
 So $E_{D_1} = 0$ and $D_1$ is a derivation.
 Hence $D = D_1 + \operatorname{ad}_c$ is a derivation.
-It commutes with $\alpha$ by assumption.
+It commutes with $\alpha$ by assumption. % claim-ok: hypothesis of the theorem being proved
 This proves Theorem~\ref{thm:main}. \qed
 
 \begin{remark}
@@ -322,7 +328,7 @@ The proof uses that $2$ is invertible in three places: to cancel $2p = 0$ and $2
 
 \section{Examples and sharpness}\label{sec:examples}
 
-The hypothesis that $2$ is invertible is needed.
+The hypothesis that $2$ is invertible is needed. % claim-ok: shown by the example that follows
 
 \begin{example}\label{ex:antichain}
 Let $X = \{1,2\}$ be a set of two incomparable points with $\tau$ the swap, and let $K = \mathbb{F}_2$.
@@ -334,8 +340,8 @@ But a derivation satisfies $D(\varepsilon_1) = D(\varepsilon_1^2) = 2\varepsilon
 So $D$ is not a derivation.
 \end{example}
 
-The next table lists dimensions computed by computer from the rank of the linear system that defines $\BSDer(A,\alpha)^\alpha$ and $\Der(A)^\alpha$.
-Each entry is the pair $(\dim\BSDer(A,\alpha)^\alpha,\ \dim\Der(A)^\alpha)$ over the field $\mathbb{F}_p$.
+The next table lists dimensions computed by computer from the rank of the linear system that defines $\BSDer(A,\alpha)^\alpha$ and $\Der(A)^\alpha$. % claim-ok: computed in Dimensions.lean, recorded in formalization-debt.md
+Each entry is the pair $(\dim\BSDer(A,\alpha)^\alpha,\ \dim\Der(A)^\alpha)$ over the field $\mathbb{F}_p$. % claim-ok: definition of the table entries
 Since $\Der(A)^\alpha \subseteq \BSDer(A,\alpha)^\alpha$ by Lemma~\ref{lem:criterion}, equal dimensions mean equal spaces.
 
 \begin{center}

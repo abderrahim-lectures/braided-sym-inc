@@ -4,7 +4,7 @@ defaultTargets = ["Research"]
 [[require]]
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4"
-rev = "2b1308ee396f215169fdaa6807ea1d0f91d0001f"
+rev = "master"
 
 [[lean_lib]]
 name = "Research"
