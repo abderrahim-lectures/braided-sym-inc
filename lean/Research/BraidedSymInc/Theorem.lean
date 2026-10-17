@@ -55,4 +55,46 @@ theorem braided_iff_derivation {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x) (h2 
   · intro hder
     exact derivation_is_bs (alpha τ) D.toAddMonoidHom hcomm hder
 
+/-- The map `α` of an order involution is an involution. -/
+theorem alpha_alpha {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x) (f : IncidenceAlgebra K P) :
+    alpha τ (alpha τ f) = f := by
+  apply IncidenceAlgebra.ext
+  intro a b _
+  rw [alpha_apply, alpha_apply, hτ a, hτ b]
+
+/-- `α` is injective. -/
+theorem alpha_injective {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x) :
+    Function.Injective (alpha (K := K) τ) := by
+  intro f g h
+  have h' := congrArg (alpha (K := K) τ) h
+  rw [alpha_alpha hτ, alpha_alpha hτ] at h'
+  exact h'
+
+omit [Fintype P] in
+/-- With `2` invertible in `K`, the incidence algebra has no `2`-torsion. -/
+theorem incidence_two_torsion_free (h2 : IsUnit (2 : K)) (f : IncidenceAlgebra K P)
+    (hf : f + f = 0) : f = 0 := by
+  obtain ⟨u, hu⟩ := h2.exists_left_inv
+  have h3 : (2 : K) • f = 0 := by
+    rw [two_smul]
+    exact hf
+  have h4 : f = (u * 2) • f := by
+    rw [hu, one_smul]
+  rw [h4, mul_smul, h3, smul_zero]
+
+/-- Theorem 1.1 without the commuting hypothesis: `BSDer(A,α) = Der(A)^α`.
+A braided-symmetric derivation commutes with `α` automatically. -/
+theorem braided_iff_derivation_comm {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x) (h2 : IsUnit (2 : K))
+    {D : IncidenceAlgebra K P →ₗ[K] IncidenceAlgebra K P} :
+    (∀ f g, D (twist (alpha τ) f g) = twist (alpha τ) (D f) g + twist (alpha τ) f (D g)) ↔
+      ((∀ f g, D (f * g) = D f * g + f * D g) ∧ ∀ f, D (alpha τ f) = alpha τ (D f)) := by
+  constructor
+  · intro hbs
+    have hcomm : ∀ f, D (alpha τ f) = alpha τ (D f) :=
+      bs_comm (alpha τ) D.toAddMonoidHom (alpha_injective hτ)
+        (incidence_two_torsion_free h2) hbs
+    exact ⟨derivation_of_braided hτ h2 hcomm hbs, hcomm⟩
+  · intro hh
+    exact derivation_is_bs (alpha τ) D.toAddMonoidHom hh.2 hh.1
+
 end Research.BraidedSymInc

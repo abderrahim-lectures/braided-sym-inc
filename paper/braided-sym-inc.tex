@@ -1,4 +1,4 @@
-% Version: v3 (2026-10-16), Xiao's Theorem 3.3 is stated as the source gives it, with its standing hypothesis on X before it, and the incidence algebra is credited to Xiao. No result changes; two attributions are added.
+% Version: v5 (2026-10-17), the commuting condition is removed from Theorem 1.1: every braided-symmetric derivation kills the unit and commutes with alpha (Lemma lem:commute), so BSDer(A,alpha) = Der(A)^alpha. The paper is a short note with the title "A Note on Twisted Jordan Derivations of Incidence Algebras". Claim added: Lemma lem:commute and the stronger Theorem 1.1.
 \documentclass[]{interact}
 \usepackage[utf8]{inputenc}
 
@@ -43,7 +43,7 @@
 \newcommand{\paperversion}{1}
 
 \begin{document}
-\title{Braided-Symmetric Derivations of Incidence Algebras}
+\title{A Note on Twisted Jordan Derivations of Incidence Algebras}
 
 \author{
 \name{Abderrahim Adrabi\textsuperscript{a,b}\thanks{CONTACT A. Adrabi. Email: abderrahim.adrabi@um5r.ac.ma}}
@@ -58,7 +58,8 @@
 Let $A$ be the incidence algebra of a finite partially ordered set $X$ (a poset) over a commutative ring $K$ in which $2$ is invertible.
 Let $\tau$ be an order automorphism of $X$ with $\tau^2 = \mathrm{id}$, and let $\alpha$ be the automorphism of $A$ that $\tau$ induces.
 We twist the Jordan product of $A$ by $\alpha$, and we call a linear map that satisfies the Leibniz rule for this product a braided-symmetric derivation.
-We prove that a braided-symmetric derivation that commutes with $\alpha$ is a derivation.
+We prove that the braided-symmetric derivations are exactly the derivations that commute with $\alpha$.
+The commuting condition is not an assumption, because every braided-symmetric derivation satisfies it.
 For $\tau = \mathrm{id}$ this is the known theorem that Jordan derivations of incidence algebras are derivations.
 We show that the hypothesis on $2$ is needed, and we list computed dimensions for small posets.
 \end{abstract}
@@ -92,10 +93,11 @@ A linear map $D \colon A \to A$ is braided-symmetric if $D(x \cdot y) = D(x) \cd
 Let $\BSDer(A,\alpha)$ be the set of these maps, and let $\BSDer(A,\alpha)^\alpha$ be the subset of maps that commute with $\alpha$.
 Let $\Der(A)^\alpha$ be the set of derivations of $A$ that commute with $\alpha$.
 
-\begin{theorem}\label{thm:main}
+\begin{theorem}\label{thm:main} % ours: main result of this note, proved in Section 3
 Let $K$ be a commutative ring with $2$ invertible, let $X$ be a finite poset, and let $\tau$ be an order automorphism of $X$ with $\tau^2 = \mathrm{id}$.
 Let $A = I(X,K)$ and let $\alpha$ be the automorphism of $A$ induced by $\tau$.
-Then $\BSDer(A,\alpha)^\alpha = \Der(A)^\alpha$.
+Then $\BSDer(A,\alpha) = \Der(A)^\alpha$.
+In particular every braided-symmetric derivation commutes with $\alpha$.
 \end{theorem}
 
 For $\tau = \mathrm{id}$ the map $\alpha$ is the identity and $x \cdot y = xy + yx$.
@@ -103,6 +105,7 @@ Then Theorem~\ref{thm:main} says that a Jordan derivation of $I(X,K)$ is a deriv
 This case is Theorem~\ref{thm:xiao}, a theorem of Xiao~\cite[Theorem 3.3]{Xiao2015}, which we recall.
 
 In his paper, $X$ is a locally finite preordered set~\cite[p.~1357]{Xiao2015}.
+Our poset $X$ is finite, so the element $c$ of Step~1 is a finite sum.
 
 \begin{theorem}[{\cite[Theorem 3.3]{Xiao2015}}]\label{thm:xiao}
 Let $R$ be a $2$-torsion free commutative ring with identity.
@@ -173,8 +176,29 @@ So the Leibniz rule holds exactly when $E(x,y) + \alpha(E(y,x)) = 0$.
 If $D$ is a derivation then $E = 0$ and this holds.
 \end{proof}
 
-By Lemma~\ref{lem:criterion}, the inclusion $\Der(A)^\alpha \subseteq \BSDer(A,\alpha)^\alpha$ is clear.
-It remains to show that a map $D$ in $\BSDer(A,\alpha)^\alpha$ is a derivation. % claim-ok: states what the next section proves
+The next lemma shows that the commuting condition holds for every braided-symmetric derivation. % claim-ok: linking sentence
+
+\begin{lemma}\label{lem:commute}
+Let $D \in \BSDer(A,\alpha)$.
+Then $D(1) = 0$ and $D\alpha = \alpha D$.
+So $\BSDer(A,\alpha) = \BSDer(A,\alpha)^\alpha$.
+\end{lemma}
+
+\begin{proof}
+We have $1 \cdot 1 = 1 + \alpha(1) = 2$, so $D(1 \cdot 1) = 2D(1)$.
+Also $D(1) \cdot 1 = D(1) + \alpha(D(1)) = 1 \cdot D(1)$.
+The Leibniz rule gives $D(1 \cdot 1) = 2D(1) + 2\alpha(D(1))$.
+So $2\alpha(D(1)) = 0$, and since $2$ is invertible and $\alpha$ is injective, $D(1) = 0$.
+Now let $x \in A$.
+Then $1 \cdot x = x + \alpha(x)$ and $D(1) \cdot x = 0$, so the Leibniz rule gives $D(x) + D(\alpha(x)) = D(1) \cdot x + 1 \cdot D(x) = D(x) + \alpha(D(x))$.
+Hence $D(\alpha(x)) = \alpha(D(x))$.
+\end{proof}
+
+The proof uses only the unit of $A$, the invertibility of $2$ and the injectivity of $\alpha$. % claim-ok: describes the proof just above
+So Lemma~\ref{lem:commute} holds for every unital $K$-algebra with an automorphism $\alpha$, when $2$ is invertible in $K$. % ours: the remark describes the lemma proved just above
+
+By Lemma~\ref{lem:criterion}, the inclusion $\Der(A)^\alpha \subseteq \BSDer(A,\alpha)$ is clear.
+By Lemma~\ref{lem:commute}, it remains to show that a map $D$ in $\BSDer(A,\alpha)^\alpha$ is a derivation. % claim-ok: states what the next section proves
 
 \section{Proof of the theorem}\label{sec:proof}
 
@@ -188,8 +212,6 @@ Since $D\alpha = \alpha D$ and $\alpha(\varepsilon_x) = \varepsilon_{\tau x}$,
 \begin{equation}\label{eq:equi}
 F_{\tau x}(\tau r, \tau s) = F_x(r,s).
 \end{equation}
-
-\paragraph{Step 1: the values $D(\varepsilon_x)$}
 
 Let $x \ne y$ in $X$ and put $P_{xy} = D(\varepsilon_x)\varepsilon_y + \varepsilon_x D(\varepsilon_y)$.
 Since $\varepsilon_x\varepsilon_y = 0$, we have $E(\varepsilon_x,\varepsilon_y) = -P_{xy}$.
@@ -225,12 +247,13 @@ Hence $s = \tau r$ or $r = \tau x$.
 
 Combine the two conclusions.
 If $r = \tau s$, then $s = \tau r$, and $r \le s = \tau r$ gives $r = \tau r = s$ by Lemma~\ref{lem:order}.
-Otherwise $s = \tau x$ and $r = \tau x$, so $r = s = \tau x$.
+Otherwise $s = \tau x$, and then $s = \tau r$ would give $r = x$, which is excluded.
+So $r = \tau x$, and $r = s = \tau x$.
 \end{proof}
 
 So $D(\varepsilon_x)$ is a sum of terms $e_{xs}$ with $s > x$, terms $e_{rx}$ with $r < x$, and diagonal terms.
 
-\paragraph{Step 2: removing an inner derivation}
+\paragraph*{Step 1: removing an inner derivation}
 
 For $r < s$ put $c_{rs} = F_s(r,s)$ and let $c = \sum_{r<s} c_{rs}e_{rs}$.
 By~\eqref{eq:equi} and since $\tau$ maps the set of pairs $r < s$ onto itself, we have $\alpha(c) = c$.
@@ -257,7 +280,7 @@ D_1(\varepsilon_x) = \sum_y d_x(y)\,\varepsilon_y, \qquad d_{\tau x}(\tau y) = d
 \]
 Relation~\eqref{eq:rel} still holds for $D_1$.
 
-\paragraph{Step 3: $D_1$ vanishes on the idempotents}
+\paragraph*{Step 2: $D_1$ vanishes on the idempotents}
 
 Let $x \ne y$ and put $p = d_x(y)$ and $q = d_y(x)$.
 Then $P_{xy} = p\varepsilon_y + q\varepsilon_x$ and $P_{\tau y\,\tau x} = q\varepsilon_{\tau x} + p\varepsilon_{\tau y}$, so~\eqref{eq:P} reads
@@ -281,13 +304,13 @@ If $\tau x \ne x$ this gives $\lambda_x = 0$.
 If $\tau x = x$ it gives $2\lambda_x = 0$, so $\lambda_x = 0$.
 So $D_1(\varepsilon_x) = 0$ for all $x$.
 
-\paragraph{Step 4: $D_1$ on the other basis elements}
+\paragraph*{Step 3: $D_1$ on the other basis elements}
 
 Let $c_0 < d_0$ in $X$ and write $H = D_1(e_{c_0 d_0})$, so that $\alpha(H) = D_1(e_{\tau c_0\,\tau d_0})$.
 Take $x \in X$.
 Since $D_1(\varepsilon_x) = 0$, we have $E(\varepsilon_x, e_{c_0d_0}) = \delta_{xc_0}H - \varepsilon_xH$ and $E(e_{c_0d_0}, \varepsilon_x) = \delta_{xd_0}H - H\varepsilon_x$.
 Relation~\eqref{eq:rel} for the pair $(\varepsilon_x, e_{c_0d_0})$ gives
-\begin{equation}\label{eq:step4}
+\begin{equation}\label{eq:step3}
 \delta_{xc_0}H - \varepsilon_xH + \delta_{xd_0}\alpha(H) - \alpha(H)\varepsilon_{\tau x} = 0.
 \end{equation}
 Let $x \notin \{c_0,d_0\}$.
@@ -305,12 +328,12 @@ Since $c_0 < d_0$,
 \[
 H = p\,\varepsilon_{c_0} + q\,e_{c_0d_0} + r\,\varepsilon_{d_0}.
 \]
-Put $x = c_0$ in~\eqref{eq:step4}.
+Put $x = c_0$ in~\eqref{eq:step3}.
 Then $(1-\varepsilon_{c_0})H = \alpha(H)\varepsilon_{\tau c_0}$, that is, $r\,\varepsilon_{d_0} = p\,\varepsilon_{\tau c_0}$.
 We have $d_0 \ne \tau c_0$, since $c_0 < d_0 = \tau c_0$ would contradict Lemma~\ref{lem:order}.
 So $r = p = 0$ and $D_1(e_{c_0d_0}) = q_{c_0d_0}\,e_{c_0d_0}$ for a scalar $q_{c_0d_0}$.
 
-\paragraph{Step 5: $D_1$ is a derivation}
+\paragraph*{Step 4: $D_1$ is a derivation}
 
 Put $q_{xx} = 0$.
 Then $D_1(e_{xy}) = q_{xy}e_{xy}$ for all $x \le y$.
@@ -323,11 +346,11 @@ For $e_{xy}$ and $e_{zw}$ with $y \ne z$ we get $D_1(0) - q_{xy}e_{xy}e_{zw} - q
 For $y = z$ we get $(q_{xw} - q_{xy} - q_{yw})e_{xw} = 0$.
 So $E_{D_1} = 0$ and $D_1$ is a derivation.
 Hence $D = D_1 + \operatorname{ad}_c$ is a derivation.
-It commutes with $\alpha$ by assumption. % claim-ok: hypothesis of the theorem being proved
+By Lemma~\ref{lem:commute}, $D$ commutes with $\alpha$, so $D \in \Der(A)^\alpha$.
 This proves Theorem~\ref{thm:main}. \qed
 
 \begin{remark}
-The proof uses that $2$ is invertible in three places: to cancel $2p = 0$ and $2\lambda_x = 0$ in Step~3, and $2h = 0$ in Step~4.
+The proof uses that $2$ is invertible in four places: to cancel $2\alpha(D(1)) = 0$ in Lemma~\ref{lem:commute}, $2p = 0$ and $2\lambda_x = 0$ in Step~2, and $2h = 0$ in Step~3.
 \end{remark}
 
 \section{Examples and sharpness}\label{sec:examples}
@@ -346,7 +369,7 @@ So $D$ is not a derivation.
 
 The next table lists dimensions computed by computer from the rank of the linear system that defines $\BSDer(A,\alpha)^\alpha$ and $\Der(A)^\alpha$. % claim-ok: computed in Dimensions.lean, recorded in formalization-debt.md
 Each entry is the pair $(\dim\BSDer(A,\alpha)^\alpha,\ \dim\Der(A)^\alpha)$ over the field $\mathbb{F}_p$. % claim-ok: definition of the table entries
-Since $\Der(A)^\alpha \subseteq \BSDer(A,\alpha)^\alpha$ by Lemma~\ref{lem:criterion}, equal dimensions mean equal spaces.
+Since $\BSDer(A,\alpha)^\alpha = \BSDer(A,\alpha)$ by Lemma~\ref{lem:commute} and $\Der(A)^\alpha \subseteq \BSDer(A,\alpha)$ by Lemma~\ref{lem:criterion}, equal dimensions mean equal spaces.
 
 \begin{center}
 \begin{tabular}{l l c c}

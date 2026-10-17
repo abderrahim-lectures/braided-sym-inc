@@ -57,4 +57,50 @@ theorem derivation_is_bs (α : A →+* A) (D : A →+ A) (hD : ∀ x, D (α x) =
     abel
   rw [h1, h2, map_zero, add_zero]
 
+/-- A braided-symmetric derivation kills the unit (needs no `2`-torsion and `α` injective). -/
+theorem bs_map_one (α : A →+* A) (D : A →+ A) (hα : Function.Injective α)
+    (h2 : ∀ a : A, a + a = 0 → a = 0)
+    (hbs : ∀ x y, D (twist α x y) = twist α (D x) y + twist α x (D y)) : D 1 = 0 := by
+  have h := hbs 1 1
+  have e1 : twist α 1 1 = 1 + 1 := by
+    unfold twist
+    rw [mul_one, map_one]
+  have e2 : twist α (D 1) 1 = D 1 + α (D 1) := by
+    unfold twist
+    rw [mul_one, one_mul]
+  have e3 : twist α 1 (D 1) = D 1 + α (D 1) := by
+    unfold twist
+    rw [one_mul, mul_one]
+  rw [e1, e2, e3, map_add] at h
+  have h' : α (D 1) + α (D 1) = 0 := by
+    have hz : (D 1 + D 1) - ((D 1 + α (D 1)) + (D 1 + α (D 1))) = 0 := sub_eq_zero.mpr h
+    have e : (D 1 + D 1) - ((D 1 + α (D 1)) + (D 1 + α (D 1))) = -(α (D 1) + α (D 1)) := by
+      abel
+    rw [e] at hz
+    exact neg_eq_zero.mp hz
+  have h0 : α (D 1) = 0 := h2 _ h'
+  apply hα
+  rw [h0, map_zero]
+
+/-- A braided-symmetric derivation commutes with `α`, with no extra hypothesis. -/
+theorem bs_comm (α : A →+* A) (D : A →+ A) (hα : Function.Injective α)
+    (h2 : ∀ a : A, a + a = 0 → a = 0)
+    (hbs : ∀ x y, D (twist α x y) = twist α (D x) y + twist α x (D y)) :
+    ∀ x, D (α x) = α (D x) := by
+  have h1 := bs_map_one α D hα h2 hbs
+  intro x
+  have h := hbs 1 x
+  have e1 : twist α 1 x = x + α x := by
+    unfold twist
+    rw [one_mul, mul_one]
+  have e2 : twist α (D 1) x = 0 := by
+    rw [h1]
+    unfold twist
+    rw [zero_mul, mul_zero, map_zero, add_zero]
+  have e3 : twist α 1 (D x) = D x + α (D x) := by
+    unfold twist
+    rw [one_mul, mul_one]
+  rw [e1, e2, e3, map_add, zero_add] at h
+  exact add_left_cancel h
+
 end Research.BraidedSymInc

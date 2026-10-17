@@ -15,4 +15,4 @@ $clean_ext = 'aux log out toc bbl blg bcf run.xml';
 # Build into build/ and name the artifact after the slug and version, so a
 # built PDF is self-identifying and the project root stays clean.
 $out_dir = 'build';
-$jobname = 'braided-sym-inc-v3';
+$jobname = 'braided-sym-inc-v5';
