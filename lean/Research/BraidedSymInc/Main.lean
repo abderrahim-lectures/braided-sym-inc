@@ -22,8 +22,8 @@ theorem single_mul_single_ne {a b c d : P} (hab : a ≤ b) (hcd : c ≤ d) (hbc 
   intro r s _
   rw [single_mul_apply, IncidenceAlgebra.zero_apply]
   by_cases hr : r = a
-  · rw [if_pos hr, single_apply, if_neg (fun hc => hbc hc.1)]
-  · rw [if_neg hr]
+  · rw [ite_eq_left hr, single_apply, ite_eq_right (fun hc => hbc hc.1)]
+  · rw [ite_eq_right hr]
 
 theorem single_mul_single_eq {a b d : P} (hab : a ≤ b) (hbd : b ≤ d) :
     (single (K := K) a b hab * single b d hbd : IncidenceAlgebra K P) = single a d (hab.trans hbd) := by
@@ -32,11 +32,11 @@ theorem single_mul_single_eq {a b d : P} (hab : a ≤ b) (hbd : b ≤ d) :
   rw [single_mul_apply, single_apply, single_apply]
   by_cases hr : r = a
   · subst hr
-    rw [if_pos rfl]
+    rw [ite_eq_left rfl]
     by_cases hs : s = d
-    · rw [if_pos ⟨rfl, hs⟩, if_pos ⟨rfl, hs⟩]
-    · rw [if_neg (fun hc => hs hc.2), if_neg (fun hc => hs hc.2)]
-  · rw [if_neg hr, if_neg (fun hc => hr hc.1)]
+    · rw [ite_eq_left ⟨rfl, hs⟩, ite_eq_left ⟨rfl, hs⟩]
+    · rw [ite_eq_right (fun hc => hs hc.2), ite_eq_right (fun hc => hs hc.2)]
+  · rw [ite_eq_right hr, ite_eq_right (fun hc => hr hc.1)]
 
 /-- After Steps 2 to 4, `D₁` is a scalar multiple of the identity on each matrix unit. -/
 theorem unit_form {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
@@ -50,8 +50,8 @@ theorem unit_form {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
   · obtain ⟨h1, h3⟩ := hrs
     subst h1
     subst h3
-    rw [if_pos ⟨rfl, rfl⟩, mul_one]
-  · rw [if_neg hrs, mul_zero]
+    rw [ite_eq_left ⟨rfl, rfl⟩, mul_one]
+  · rw [ite_eq_right hrs, mul_zero]
     rcases eq_or_lt_of_le hab with hEq | hlt
     · subst hEq
       have e : D (single (K := K) a a hab) = 0 := hz a
@@ -88,7 +88,7 @@ theorem leibniz_units {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
           unfold dfct
           rw [single_mul_single_ne hcd hab hda, map_zero, uab, ucd, smul_mul_assoc,
             mul_smul_comm', single_mul_single_ne hcd hab hda]
-          simp only [smul_zero, sub_zero, zero_sub, add_zero, sub_self, neg_zero]
+          simp only [smul_zero, sub_self]
         rw [hz2, map_zero, add_zero] at hrel
         unfold dfct at hrel
         rw [sub_sub, sub_eq_zero] at hrel

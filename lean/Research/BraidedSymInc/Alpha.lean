@@ -18,7 +18,7 @@ variable {K : Type*} [CommRing K]
 /-- Relabel an incidence function by an order automorphism. -/
 def alphaFun (τ : P ≃o P) (f : IncidenceAlgebra K P) : IncidenceAlgebra K P where
   toFun a b := f (τ a) (τ b)
-  eq_zero_of_not_le' a b hab :=
+  eq_zero_of_not_le' _ _ hab :=
     f.eq_zero_of_not_le' (fun h => hab (τ.le_iff_le.mp h))
 
 /-- The ring endomorphism induced by an order automorphism. -/
@@ -31,8 +31,8 @@ def alpha (τ : P ≃o P) : IncidenceAlgebra K P →+* IncidenceAlgebra K P wher
     rw [IncidenceAlgebra.one_apply, IncidenceAlgebra.one_apply]
     by_cases h : a = b
     · subst h
-      rw [if_pos rfl, if_pos rfl]
-    · rw [if_neg h, if_neg (fun h' => h (τ.injective h'))]
+      rw [ite_eq_left rfl, ite_eq_left rfl]
+    · rw [ite_eq_right h, ite_eq_right (fun h' => h (τ.injective h'))]
   map_mul' f g := by
     apply IncidenceAlgebra.ext
     intro a b _
@@ -45,6 +45,7 @@ def alpha (τ : P ≃o P) : IncidenceAlgebra K P →+* IncidenceAlgebra K P wher
 theorem alpha_apply (τ : P ≃o P) (f : IncidenceAlgebra K P) (a b : P) :
     alpha τ f a b = f (τ a) (τ b) := rfl
 
+omit [Fintype P] [DecidableEq P] [LocallyFiniteOrder P] in
 /-- Evaluation of a finite sum of incidence functions, entrywise. -/
 theorem sum_apply' {ι : Type*} (s : Finset ι) (F : ι → IncidenceAlgebra K P) (r t : P) :
     (∑ i ∈ s, F i) r t = ∑ i ∈ s, F i r t := by
@@ -55,24 +56,25 @@ theorem sum_apply' {ι : Type*} (s : Finset ι) (F : ι → IncidenceAlgebra K P
   | insert i s hi ih =>
     rw [Finset.sum_insert hi, Finset.sum_insert hi, IncidenceAlgebra.add_apply, ih]
 
+omit [Fintype P] in
 open scoped Classical in
 /-- Entry of one term of the matrix-unit expansion. -/
 theorem expansion_entry (f : IncidenceAlgebra K P) (r s a b : P) :
     (if h : a ≤ b then f a b • single (K := K) a b h else 0 : IncidenceAlgebra K P) r s
       = if a = r ∧ b = s then f a b else 0 := by
   by_cases h : a ≤ b
-  · rw [dif_pos h, IncidenceAlgebra.constSMul_apply, single_apply, smul_eq_mul]
+  · rw [dite_eq_left h, IncidenceAlgebra.constSMul_apply, single_apply, smul_eq_mul]
     by_cases hc : a = r ∧ b = s
     · obtain ⟨h1, h2⟩ := hc
       subst h1
       subst h2
-      rw [if_pos ⟨rfl, rfl⟩, if_pos ⟨rfl, rfl⟩, mul_one]
+      rw [ite_eq_left ⟨rfl, rfl⟩, ite_eq_left ⟨rfl, rfl⟩, mul_one]
     · have hc' : ¬ (r = a ∧ s = b) := fun he => hc ⟨he.1.symm, he.2.symm⟩
-      rw [if_neg hc', if_neg hc, mul_zero]
-  · rw [dif_neg h, IncidenceAlgebra.zero_apply]
+      rw [ite_eq_right hc', ite_eq_right hc, mul_zero]
+  · rw [dite_eq_right h, IncidenceAlgebra.zero_apply]
     by_cases hc : a = r ∧ b = s
-    · rw [if_pos hc, IncidenceAlgebra.apply_eq_zero_of_not_le h f]
-    · rw [if_neg hc]
+    · rw [ite_eq_left hc, IncidenceAlgebra.apply_eq_zero_of_not_le h f]
+    · rw [ite_eq_right hc]
 
 open scoped Classical in
 /-- Expansion of an incidence function in the matrix units. -/
@@ -89,15 +91,15 @@ theorem eq_sum_single (f : IncidenceAlgebra K P) :
   rw [Finset.sum_congr rfl (fun a _ => h1 a)]
   rw [Finset.sum_eq_single r]
   · rw [Finset.sum_eq_single s]
-    · rw [if_pos ⟨rfl, rfl⟩]
+    · rw [ite_eq_left ⟨rfl, rfl⟩]
     · intro b _ hb
-      rw [if_neg (fun h => hb h.2)]
+      rw [ite_eq_right (fun h => hb h.2)]
     · intro h
       exact absurd (Finset.mem_univ s) h
   · intro a _ ha
     apply Finset.sum_eq_zero
     intro b _
-    rw [if_neg (fun h => ha h.1)]
+    rw [ite_eq_right (fun h => ha h.1)]
   · intro h
     exact absurd (Finset.mem_univ r) h
 

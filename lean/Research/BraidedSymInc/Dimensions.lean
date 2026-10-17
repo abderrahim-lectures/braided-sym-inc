@@ -46,7 +46,7 @@ def Poset.pairs (P : Poset) : Array (Nat × Nat) := Id.run do
   return a
 
 -- structure constants: product of basis elements i,j as list of basis indices
-def Poset.prod (P : Poset) (b : Array (Nat × Nat)) (i j : Nat) : List Nat :=
+def Poset.prod (_P : Poset) (b : Array (Nat × Nat)) (i j : Nat) : List Nat :=
   if (b[i]!).2 == (b[j]!).1 then
     match b.findIdx? (· == ((b[i]!).1, (b[j]!).2)) with
     | some k => [k]

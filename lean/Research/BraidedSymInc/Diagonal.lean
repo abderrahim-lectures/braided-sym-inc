@@ -21,10 +21,11 @@ theorem eps_mul_self (x : P) : (eps x * eps x : IncidenceAlgebra K P) = eps x :=
   rw [mul_single_apply]
   by_cases hs : s = x
   · subst hs
-    rw [if_pos rfl]
-  · rw [if_neg hs, single_apply, if_neg (fun h => hs h.2)]
+    rw [ite_eq_left rfl]
+  · rw [ite_eq_right hs, single_apply, ite_eq_right (fun h => hs h.2)]
 
 open scoped Classical in
+omit [Fintype P] [LocallyFiniteOrder P] in
 theorem cMat_apply (D : IncidenceAlgebra K P →ₗ[K] IncidenceAlgebra K P) (r s : P) :
     cMat D r s = if r < s then D (eps (K := K) s) r s else 0 := rfl
 
@@ -39,14 +40,14 @@ theorem normD_offdiag {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
     have hlt : r < s := lt_of_le_of_ne hle hrs
     by_cases hsx : s = x
     · subst hsx
-      rw [if_pos rfl, if_pos hlt, if_neg hrs]
+      rw [ite_eq_left rfl, ite_eq_left hlt, ite_eq_right hrs]
       ring
     · by_cases hrx : r = x
       · subst hrx
-        rw [if_neg hsx, if_pos rfl, if_pos hlt]
+        rw [ite_eq_right hsx, ite_eq_left rfl, ite_eq_left hlt]
         have := antisym hτ G hlt
         linear_combination this
-      · rw [if_neg hsx, if_neg hrx, support_eps hτ G hle hrx hsx hrs]
+      · rw [ite_eq_right hsx, ite_eq_right hrx, support_eps hτ G hle hrx hsx hrs]
         ring
   · exact IncidenceAlgebra.apply_eq_zero_of_not_le hle _
 

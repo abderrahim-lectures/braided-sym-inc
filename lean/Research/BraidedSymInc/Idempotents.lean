@@ -22,13 +22,13 @@ theorem diag_offpoint {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
   by_cases hτy : τ y = y
   · have hn : ¬ (τ y = x) := fun hc => hxy (hc.symm.trans hτy)
     rw [hτy] at h
-    rw [if_pos rfl, if_neg (Ne.symm hxy), if_neg (fun hc : y = x => hxy hc.symm)]
+    rw [ite_eq_left rfl, ite_eq_right (Ne.symm hxy), ite_eq_right (fun hc : y = x => hxy hc.symm)]
       at h
     have h' : (2 : K) * D (eps x) y y = 0 := by linear_combination h
     exact (h2.mul_right_eq_zero).mp h'
-  · rw [if_pos rfl, if_neg (Ne.symm hxy), if_neg hτy] at h
+  · rw [ite_eq_left rfl, ite_eq_right (Ne.symm hxy), ite_eq_right hτy] at h
     by_cases hc : τ y = x
-    · rw [if_pos hc] at h
+    · rw [ite_eq_left hc] at h
       have hτx : τ x = y := by rw [← hc, hτ]
       have e := equi hτ G x y y
       rw [hτx, hc] at e
@@ -36,7 +36,7 @@ theorem diag_offpoint {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
       rw [e] at h
       have h' : (2 : K) * D (eps x) y y = 0 := by linear_combination h
       exact (h2.mul_right_eq_zero).mp h'
-    · rw [if_neg hc] at h
+    · rw [ite_eq_right hc] at h
       linear_combination h
 
 /-- Step 3: `D(ε_x) = 0` when `D(ε_x)` has no off-diagonal entry. -/
@@ -51,12 +51,12 @@ theorem eps_zero {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
       IncidenceAlgebra.sub_apply, alpha_apply, mul_single_apply, single_mul_apply] at h'
     by_cases hτx : τ x = x
     · rw [hτx] at h'
-      simp only [eq_self_iff_true, if_true] at h'
+      simp only [ite_true] at h'
       have h'' : (2 : K) * D (eps x) x x = 0 := by linear_combination (-1 : K) * h'
       exact (h2.mul_right_eq_zero).mp h''
     · have h0 : D (eps (K := K) x) (τ x) (τ x) = 0 :=
         diag_offpoint hτ G h2 (fun e => hτx e.symm)
-      simp only [eq_self_iff_true, if_true, if_neg hτx, h0] at h'
+      simp only [ite_true, ite_eq_right hτx, h0] at h'
       linear_combination (-1 : K) * h'
   apply IncidenceAlgebra.ext
   intro r s _

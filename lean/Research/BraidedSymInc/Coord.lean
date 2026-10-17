@@ -36,8 +36,8 @@ theorem eps_mul_eps_of_ne {x y : P} (h : x ≠ y) :
   intro r s _
   rw [mul_single_apply, IncidenceAlgebra.zero_apply]
   by_cases hs : s = y
-  · rw [if_pos hs, single_apply, if_neg (fun hc => h hc.2.symm)]
-  · rw [if_neg hs]
+  · rw [ite_eq_left hs, single_apply, ite_eq_right (fun hc => h hc.2.symm)]
+  · rw [ite_eq_right hs]
 
 /-- Equation (coeff): the relation on the pair `(ε_x, ε_y)`, entry `(r, s)`. -/
 theorem coeffEq {τ : P ≃o P}

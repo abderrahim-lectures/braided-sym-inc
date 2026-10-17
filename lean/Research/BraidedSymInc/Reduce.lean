@@ -35,9 +35,9 @@ theorem mem_of_units (S : Submodule K (IncidenceAlgebra K P))
   rw [eq_sum_single f]
   refine Submodule.sum_mem _ (fun a _ => Submodule.sum_mem _ (fun b _ => ?_))
   by_cases hab : a ≤ b
-  · rw [dif_pos hab]
+  · rw [dite_eq_left hab]
     exact Submodule.smul_mem _ _ (h a b hab)
-  · rw [dif_neg hab]
+  · rw [dite_eq_right hab]
     exact S.zero_mem
 
 /-- The Leibniz rule on matrix units gives the Leibniz rule everywhere. -/

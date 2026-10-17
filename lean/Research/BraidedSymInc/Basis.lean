@@ -15,6 +15,7 @@ open Finset
 variable {P : Type*} [PartialOrder P] [Fintype P] [DecidableEq P] [LocallyFiniteOrder P]
 variable {K : Type*} [CommRing K]
 
+omit [DecidableEq P] in
 /-- The product of two incidence functions as a sum over all of `P`. -/
 theorem mul_apply_univ (f g : IncidenceAlgebra K P) (r s : P) :
     (f * g) r s = ∑ x, f r x * g x s := by
@@ -35,6 +36,7 @@ def single (a b : P) (h : a ≤ b) : IncidenceAlgebra K P where
     · exact absurd (hc.1 ▸ hc.2 ▸ h) hxy
     · simp [hc]
 
+omit [Fintype P] [LocallyFiniteOrder P] in
 @[simp] theorem single_apply (a b : P) (h : a ≤ b) (x y : P) :
     (single a b h : IncidenceAlgebra K P) x y = if x = a ∧ y = b then 1 else 0 := rfl
 

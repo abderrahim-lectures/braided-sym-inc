@@ -37,21 +37,21 @@ theorem antisym {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
     {D : IncidenceAlgebra K P →ₗ[K] IncidenceAlgebra K P} (G : Good τ D) {x s : P}
     (hxs : x < s) : D (eps (K := K) x) x s + D (eps s) x s = 0 := by
   have h := coeffEq G (x := x) (y := s) hxs.ne x s
-  rw [if_pos rfl, if_pos rfl] at h
+  rw [ite_eq_left rfl, ite_eq_left rfl] at h
   have h3 : (if τ s = x then D (eps (K := K) s) (τ x) x else 0) = 0 := by
     by_cases hc : τ s = x
-    · rw [if_pos hc]
+    · rw [ite_eq_left hc]
       have e : τ x = s := by rw [← hc, hτ]
       rw [e]
       exact IncidenceAlgebra.apply_eq_zero_of_not_le (not_le_of_gt hxs) _
-    · rw [if_neg hc]
+    · rw [ite_eq_right hc]
   have h4 : (if τ x = s then D (eps (K := K) x) s (τ s) else 0) = 0 := by
     by_cases hc : τ x = s
-    · rw [if_pos hc]
+    · rw [ite_eq_left hc]
       have e : τ s = x := by rw [← hc, hτ]
       rw [e]
       exact IncidenceAlgebra.apply_eq_zero_of_not_le (not_le_of_gt hxs) _
-    · rw [if_neg hc]
+    · rw [ite_eq_right hc]
   rw [h3, h4] at h
   linear_combination h
 
@@ -60,7 +60,7 @@ open scoped Classical in
 noncomputable def cMat (D : IncidenceAlgebra K P →ₗ[K] IncidenceAlgebra K P) : IncidenceAlgebra K P where
   toFun r s := if r < s then D (eps (K := K) s) r s else 0
   eq_zero_of_not_le' r s h := by
-    rw [if_neg (fun hlt => h hlt.le)]
+    rw [ite_eq_right (fun hlt => h hlt.le)]
 
 /-- The inner derivation `f ↦ c f - f c` as a linear map. -/
 def adC (c : IncidenceAlgebra K P) : IncidenceAlgebra K P →ₗ[K] IncidenceAlgebra K P where
@@ -84,8 +84,8 @@ theorem alpha_cMat {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
     = (if r < s then D (eps (K := K) s) r s else 0)
   rw [equi hτ G s r s]
   by_cases h : r < s
-  · rw [if_pos h, if_pos (τ.lt_iff_lt.mpr h)]
-  · rw [if_neg h, if_neg (fun h' => h (τ.lt_iff_lt.mp h'))]
+  · rw [ite_eq_left h, ite_eq_left (τ.lt_iff_lt.mpr h)]
+  · rw [ite_eq_right h, ite_eq_right (fun h' => h (τ.lt_iff_lt.mp h'))]
 
 theorem dfct_sub (D : IncidenceAlgebra K P →ₗ[K] IncidenceAlgebra K P)
     (c f g : IncidenceAlgebra K P) : dfct (D - adC c) f g = dfct D f g := by

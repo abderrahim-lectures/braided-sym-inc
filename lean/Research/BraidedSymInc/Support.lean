@@ -14,6 +14,7 @@ open Finset
 variable {P : Type*} [PartialOrder P] [Fintype P] [DecidableEq P] [LocallyFiniteOrder P]
 variable {K : Type*} [CommRing K]
 
+omit [Fintype P] [DecidableEq P] [LocallyFiniteOrder P] in
 /-- Lemma `lem:order`: `x ≤ τ x` forces `τ x = x` for an order involution. -/
 theorem order_inv {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x) {x : P} (h : x ≤ τ x) : τ x = x := by
   have h2 : τ x ≤ τ (τ x) := τ.monotone h
@@ -30,17 +31,17 @@ theorem support_eps {τ : P ≃o P} (hτ : ∀ x, τ (τ x) = x)
   -- second relation: the pair (r, x), entry (r, s)
   have h2 := coeffEq G (x := r) (y := x) hr r s
   by_contra hF
-  rw [if_pos rfl, if_neg hr] at h1
-  rw [if_neg hs, if_pos rfl] at h2
+  rw [ite_eq_left rfl, ite_eq_right hr] at h1
+  rw [ite_eq_right hs, ite_eq_left rfl] at h2
   have hA : τ s = x ∨ τ r = s := by
     by_contra hc
-    push_neg at hc
-    rw [if_neg hc.1, if_neg hc.2] at h1
+    push Not at hc
+    rw [ite_eq_right hc.1, ite_eq_right hc.2] at h1
     exact hF (by linear_combination h1)
   have hB : τ s = r ∨ τ r = x := by
     by_contra hc
-    push_neg at hc
-    rw [if_neg hc.1, if_neg hc.2] at h2
+    push Not at hc
+    rw [ite_eq_right hc.1, ite_eq_right hc.2] at h2
     exact hF (by linear_combination h2)
   rcases hA with hA | hA
   · rcases hB with hB | hB
